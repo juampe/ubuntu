@@ -1,4 +1,4 @@
-# Ubuntu 64 bit Multiarch docker containers��
+# Ubuntu 64 bit Multiarch docker containers 🐳
 This is replicable a 2 stage bootstrap ubuntu images built from debootstrap
 Access to the multi-platform docker [image](https://hub.docker.com/r/juampe/ubuntu).
 Access to the Git [repository](https://github.com/juampe/ubuntu)
@@ -36,6 +36,13 @@ docker run --rm -t juampe/ubuntu:hirsute-riscv64 uname -m # Testing the emulatio
 ```
 Clone the repository
 ```
-sdsd
+git clone https://github.com/juampe/ubuntu.git
+cd ubuntu
+```
+Edit build.sh header variables to fit yout needs
+```
+./build.sh # to build
+./builds.sh publish # to register and manifest publish
 ```
 
+Enjoy!
