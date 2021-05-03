@@ -1,9 +1,11 @@
 # Ubuntu 64 bit Multiarch docker containers 🐳
-This is replicable a 2 stage bootstrap ubuntu images built from debootstrap
+This is replicable a 2 stage bootstrap ubuntu images built from debootstrap.
+
 Access to the multi-platform docker [image](https://hub.docker.com/r/juampe/ubuntu).
+
 Access to the Git [repository](https://github.com/juampe/ubuntu)
 
-# 2 stage debootstrap build process
+# 2 stage debootstrap build process✔️
 First built from base distribution, second build from itself as a ubuntu container with ubuntu debootstrap
 Assure container support compatibility with the architecture adding updates and security updates
 
@@ -12,9 +14,7 @@ Supported platforms:
 * linux/amd64
 * linux/arm64
 * linux/riscv64
-* 
-🙏If you apprecciate the effort, please consider to support us making an ADA donation.
->addr1qys8y92emhj6r5rs7puw6df9ahcvna6gtdm7jlseg8ek7xf46xjc0eelmgtjvmcl9tjgaamz93f4e5nu86dus6grqyrqd28l0r
+
 # Minimize supply chain attack. 🔗
 You can supervise all the sources, all the build steps, build yourserlf.
 
@@ -45,4 +45,6 @@ Edit build.sh header variables to fit yout needs
 ./builds.sh publish # to register and manifest publish
 ```
 
-Enjoy!
+# Enjoy!
+🙏If you apprecciate the effort, please consider to support us making a Cardano (ADA) donation.
+>addr1qys8y92emhj6r5rs7puw6df9ahcvna6gtdm7jlseg8ek7xf46xjc0eelmgtjvmcl9tjgaamz93f4e5nu86dus6grqyrqd28l0r
