@@ -4,8 +4,8 @@
 #Tag for docker regitry
 TAG="juampe/ubuntu"
 #Platforms to build space separated
-#PLATFORMS="arm64 amd64 riscv64"
-PLATFORMS="arm64"
+PLATFORMS="arm64 amd64 riscv64"
+#PLATFORMS="arm64"
 #Ubuntu releases to build
 #RELEASES="focal groovy hirsute"
 RELEASES="hirsute"
@@ -27,6 +27,12 @@ declare -A REPOSITORY
 REPOSITORY["amd64"]="http://archive.ubuntu.com/ubuntu"
 REPOSITORY["arm64"]="http://ports.ubuntu.com/ubuntu-ports"
 REPOSITORY["riscv64"]="http://ports.ubuntu.com/ubuntu-ports"
+
+
+declare -A DOCKER_ARCH
+DOCKER_ARCH["amd64"]="amd64"
+DOCKER_ARCH["arm64"]="arm64"
+DOCKER_ARCH["riscv64"]="riscv64"
 
 cd $WORKPLACE
 
@@ -51,11 +57,12 @@ then
 			REPO=${REPOSITORY["$PLATFORM"]}
 			echo ">> debootstrap --verbose --include=iputils-ping $RELEASE /data/$RELEASE-$PLATFORM $REPO"
 			#debootstrap --verbose --include=iputils-ping --arch arm64 focal /data/focal-arm64 http://ports.ubuntu.com/ubuntu-ports
+			echo "export REPO=$REPO RELEASE=$RELEASE PLATFORM=$PLATFORM"
 			docker run  -i --rm -v $WORKPLACE:/data $IMG /bin/bash  << EOF
 export DEBIAN_FRONTEND="noninteractive" 
 apt-get -y update
 apt-get -y install debootstrap
-debootstrap --verbose --include=iputils-ping,python3 --arch $PLATFORM $RELEASE /data/$RELEASE-$PLATFORM $REPO
+debootstrap --verbose --include=iputils-ping --arch $PLATFORM $RELEASE /data/$RELEASE-$PLATFORM $REPO
 /bin/echo -ne "deb $REPO $RELEASE main restricted universe multiverse\ndeb $REPO $RELEASE-security main restricted universe multiverse\ndeb $REPO $RELEASE-updates main restricted universe multiverse\n" > /data/$RELEASE-$PLATFORM/etc/apt/sources.list
 chroot /data/$RELEASE-$PLATFORM/ /bin/bash << SEOF 
 export DEBIAN_FRONTEND="noninteractive"
@@ -97,7 +104,9 @@ then
 
 		for PLATFORM in $PLATFORMS
 		do
-			docker manifest annotate --arch $PLATFORM $TAG:$RELEASE $TAG:$RELEASE-$PLATFORM
+			ARCH=${DOCKER_ARCH["$PLATFORM"]}
+			echo ">> Publish $RELEASE $ARCH"
+			docker manifest annotate --os linux --arch $ARCH $TAG:$RELEASE $TAG:$RELEASE-$PLATFORM
 			docker manifest push $TAG:$RELEASE-$PLATFORM
 		done
 		docker manifest push $TAG:$RELEASE
