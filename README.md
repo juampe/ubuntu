@@ -45,6 +45,6 @@ Edit build.sh header variables to fit yout needs
 ./builds.sh publish # to register and manifest publish
 ```
 
-# Enjoy!
+# Enjoy!🍿
 🙏If you apprecciate the effort, please consider to support us making a Cardano (ADA) donation.
 >addr1qys8y92emhj6r5rs7puw6df9ahcvna6gtdm7jlseg8ek7xf46xjc0eelmgtjvmcl9tjgaamz93f4e5nu86dus6grqyrqd28l0r
